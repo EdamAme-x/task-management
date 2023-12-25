@@ -1,23 +1,32 @@
+<!-- signup.html -->
+
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>サインイン</title>
+  <title>Sign Up</title>
 </head>
 <body>
-  <h1>サインイン</h1>
+
+  <h1>Sign Up</h1>
+
   <form id="signupForm">
-    <label for="username">ユーザー名:</label>
+    <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
-    <br>
-    <label for="email">メールアドレス:</label>
+    <div id="usernameError" style="color: red;"></div>
+
+    <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>
-    <br>
-    <label for="password">パスワード:</label>
+    <div id="emailError" style="color: red;"></div>
+
+    <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
-    <br>
-    <button type="button" onclick="signup()">サインイン</button>
+
+    <div id="errorMessage" style="color: red;"></div>
+    
+    <button type="button" onclick="signup()">Sign Up</button>
   </form>
 
   <script src="signup.js"></script>

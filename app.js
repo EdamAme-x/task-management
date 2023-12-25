@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('./db'); // db.jsを読み込む
+const db = require('./db');
 
 const app = express();
 const port = 3000;
