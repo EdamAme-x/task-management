@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise');
+const crypto = require('crypto');
 
 // データベース接続情報
 const dbConfig = {
@@ -25,12 +26,40 @@ async function insertUserData(username, email, password) {
     return false;
   }
 
+  // パスワードの要件を確認
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  if (!passwordRegex.test(password)) {
+    console.error('パスワードが要件を満たしていませんにゃん！');
+    return { success: false, message: 'パスワードが要件を満たしていませんにゃん！' };
+  }
+
   try {
+    // パスワードをハッシュ化
+    const hashedPassword = crypto.createHash('sha256').update(username + password).digest('hex');
+
     // データベースに接続
     const connection = await mysql.createConnection(dbConfig);
 
+    // ユーザー名の重複を確認
+    const [usernameRows] = await connection.execute('SELECT * FROM Users WHERE username = ?', [username]);
+    if (usernameRows.length > 0) {
+      // ユーザー名が既に存在する場合はエラーメッセージを返す
+      connection.end();
+      console.error('ユーザー名が重複していますにゃん！');
+      return { success: false, message: 'ユーザー名が既に存在していますにゃん！' };
+    }
+
+    // メールアドレスの重複を確認
+    const [rows] = await connection.execute('SELECT * FROM Users WHERE email = ?', [email]);
+    if (rows.length > 0) {
+      // メールアドレスが既に存在する場合はエラーメッセージを返す
+      connection.end();
+      console.error('メールアドレスが重複していますにゃん！');
+      return { success: false, message: 'メールアドレスが既に存在していますにゃん！' };
+    }
+
     // ユーザーデータをデータベースに挿入
-    const [rows, fields] = await connection.execute('INSERT INTO Users (username, email, password) VALUES (?, ?, ?)', [username, email, password]);
+    const [insertResult] = await connection.execute('INSERT INTO Users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
 
     // 接続を閉じる
     connection.end();

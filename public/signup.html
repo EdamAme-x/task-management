@@ -1,5 +1,3 @@
-<!-- signup.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +21,10 @@
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
+    <div id="passwordError" style="color: red;"></div> <!-- パスワードのエラーメッセージ表示用の要素 -->
 
     <div id="errorMessage" style="color: red;"></div>
-    
+
     <button type="button" onclick="signup()">Sign Up</button>
   </form>
 

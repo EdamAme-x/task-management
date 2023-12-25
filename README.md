@@ -7,6 +7,7 @@ mariadb
 サーバーで行うコマンド
 ```
 npm install mysql2
+npm install crypto
 ```
 
 SQL文
