@@ -1,21 +1,17 @@
-const mysql = require('mysql2');
+const getConnection = require('./db');
 
-// ご主人さまのMariaDBの情報に合わせて変更してね
-const connection = mysql.createConnection({
-  host: '192.168.100.15',
-  user: 'robot',
-  password: '',
-  database: 'test',
-  port: 3306
-});
+// データベースに接続してクエリを実行する例
+const runQuery = async () => {
+  const connection = await getConnection();
 
-connection.connect((err) => {
-  if (err) {
-    console.error('エラーが発生しましたにゃん！', err);
-  } else {
-    console.log('MariaDBに接続できましたにゃん！');
+  try {
+    // ここでクエリを実行するにゃん
+  } catch (error) {
+    console.error('エラーが発生しましたにゃん！', error);
+  } finally {
+    // クエリが終わったら必ず接続を解放するにゃん
+    connection.release();
   }
-});
+};
 
-// ちゃんと接続を切るにゃん！
-connection.end();
+runQuery();
