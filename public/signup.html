@@ -1,33 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="js">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
+  <title>アカウント作成</title>
 </head>
 <body>
-
-  <h1>Sign Up</h1>
-
-  <form id="signupForm">
-    <label for="username">Username:</label>
+  <h1>アカウント作成</h1>
+  <form>
+    <label for="username">ユーザーネーム:</label>
     <input type="text" id="username" name="username" required>
-    <div id="usernameError" style="color: red;"></div>
+    <p>英字,数字,_が使用可能</p>
+    <div id="usernameError" class="error"></div>
 
-    <label for="email">Email:</label>
+    <label for="email">メールアドレス:</label>
     <input type="email" id="email" name="email" required>
-    <div id="emailError" style="color: red;"></div>
+    <div id="emailError" class="error"></div>
 
-    <label for="password">Password:</label>
+    <label for="password">パスワード:</label>
     <input type="password" id="password" name="password" required>
-    <div id="passwordError" style="color: red;"></div> <!-- パスワードのエラーメッセージ表示用の要素 -->
+    <p>英字,数字,記号を含める8文字以上のパスワード</p>
+    <div id="passwordError" class="error"></div>
 
-    <div id="errorMessage" style="color: red;"></div>
+    <label for="confirmPassword">パスワード確認:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <div id="confirmPasswordError" class="error"></div>
 
-    <button type="button" onclick="signup()">Sign Up</button>
+    <button type="button" onclick="signup()">アカウントを作成</button>
   </form>
-
-  <script src="signup.js"></script>
+  <div id="errorMessage" class="error"></div>
+  <script src="/signup.js"></script>
 </body>
 </html>

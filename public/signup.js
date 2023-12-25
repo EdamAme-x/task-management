@@ -4,12 +4,14 @@ async function signup() {
   const username = document.getElementById('username').value;
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
   const errorMessageElement = document.getElementById('errorMessage');
 
   // エラーメッセージをクリア
   document.getElementById('usernameError').innerHTML = '';
   document.getElementById('emailError').innerHTML = '';
   document.getElementById('passwordError').innerHTML = '';
+  document.getElementById('confirmPasswordError').innerHTML = '';
   errorMessageElement.innerHTML = '';
 
   // ユーザー名の形式をチェック
@@ -28,7 +30,21 @@ async function signup() {
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!passwordRegex.test(password)) {
     document.getElementById('passwordError').innerHTML = 'パスワードが要件を満たしていませんにゃん！<br>';
-    return; // 条件を満たしていない場合はここで終了
+  }
+
+  // パスワードと確認用パスワードが一致するかチェック
+  if (password !== confirmPassword) {
+    document.getElementById('confirmPasswordError').innerHTML = 'パスワードが一致しませんにゃん！<br>';
+  }
+
+  // どれかの条件を満たしていない場合は終了
+  if (
+    document.getElementById('usernameError').innerHTML ||
+    document.getElementById('emailError').innerHTML ||
+    document.getElementById('passwordError').innerHTML ||
+    document.getElementById('confirmPasswordError').innerHTML
+  ) {
+    return;
   }
 
   const response = await fetch('/signup', {
@@ -56,4 +72,3 @@ async function signup() {
     }
   }
 }
-
