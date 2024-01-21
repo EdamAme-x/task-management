@@ -37,3 +37,12 @@ CREATE TABLE Tasks (
 );
 
 ```
+
+``.env.example`を参考に`.env`を作成
+```env
+host="192.168.100.15"
+user="robot"
+password=""
+database="test"
+port=3306
+```

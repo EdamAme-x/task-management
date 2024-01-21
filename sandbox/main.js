@@ -1,12 +1,13 @@
 const mysql = require('mysql2');
+const env = require('dotenv').config().parsed;
 
 // ご主人さまのMariaDBの情報に合わせて変更してね
 const connection = mysql.createConnection({
-  host: '192.168.100.15',
-  user: 'robot',
-  password: '',
-  database: 'test',
-  port: 3306
+  host: env.host,
+  user: env.user,
+  password: env.password,
+  database: env.database,
+  port: env.port
 });
 
 connection.connect((err) => {
